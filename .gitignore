@@ -29,6 +29,12 @@ dist/
 baseline/*
 !baseline/README.md
 
+# figure outputs
+figures/
+
+# test data
+operator_backend_config.json
+
 # Baseline-generated artifacts
 baseline/*
 
