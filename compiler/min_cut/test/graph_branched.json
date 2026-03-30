@@ -1,0 +1,58 @@
+{
+  "graph_id": "branched_small",
+  "nodes": [
+    {
+      "node_id": "b1",
+      "op_type": "Linear_QKV",
+      "input_shape": [1, 4, 8],
+      "output_shape": [1, 4, 24]
+    },
+    {
+      "node_id": "b2",
+      "op_type": "Softmax",
+      "input_shape": [1, 2, 4, 4],
+      "output_shape": [1, 2, 4, 4]
+    },
+    {
+      "node_id": "b3",
+      "op_type": "LayerNorm",
+      "input_shape": [1, 4, 8],
+      "output_shape": [1, 4, 8]
+    },
+    {
+      "node_id": "b4",
+      "op_type": "FFN_Linear_1",
+      "input_shape": [1, 4, 8],
+      "output_shape": [1, 4, 16]
+    },
+    {
+      "node_id": "b5",
+      "op_type": "GeLU",
+      "input_shape": [1, 4, 16],
+      "output_shape": [1, 4, 16]
+    }
+  ],
+  "edges": [
+    {
+      "src": "b1",
+      "dst": "b2",
+      "tensor_shape": [1, 2, 4, 4]
+    },
+    {
+      "src": "b1",
+      "dst": "b3",
+      "tensor_shape": [1, 4, 8]
+    },
+    {
+      "src": "b3",
+      "dst": "b4",
+      "tensor_shape": [1, 4, 8]
+    },
+    {
+      "src": "b4",
+      "dst": "b5",
+      "tensor_shape": [1, 4, 16]
+    }
+  ]
+}
+

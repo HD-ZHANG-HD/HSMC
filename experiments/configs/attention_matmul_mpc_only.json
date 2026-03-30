@@ -1,0 +1,14 @@
+{
+  "Embedding": "HE",
+  "Linear_QKV": "HE",
+  "Attention_QK_MatMul": "MPC",
+  "Softmax": "HE",
+  "Attention_V_MatMul": "MPC",
+  "Out_Projection": "HE",
+  "Residual_Add": "HE",
+  "LayerNorm": "HE",
+  "FFN_Linear_1": "HE",
+  "GeLU": "HE",
+  "FFN_Linear_2": "HE"
+}
+

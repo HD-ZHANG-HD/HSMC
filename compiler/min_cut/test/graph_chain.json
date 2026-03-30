@@ -1,0 +1,47 @@
+{
+  "graph_id": "chain_4",
+  "nodes": [
+    {
+      "node_id": "n1",
+      "op_type": "Linear_QKV",
+      "input_shape": [1, 4, 8],
+      "output_shape": [1, 4, 24]
+    },
+    {
+      "node_id": "n2",
+      "op_type": "Softmax",
+      "input_shape": [1, 2, 4, 4],
+      "output_shape": [1, 2, 4, 4]
+    },
+    {
+      "node_id": "n3",
+      "op_type": "Attention_V_MatMul",
+      "input_shape": [1, 2, 4, 4],
+      "output_shape": [1, 4, 8]
+    },
+    {
+      "node_id": "n4",
+      "op_type": "LayerNorm",
+      "input_shape": [1, 4, 8],
+      "output_shape": [1, 4, 8]
+    }
+  ],
+  "edges": [
+    {
+      "src": "n1",
+      "dst": "n2",
+      "tensor_shape": [1, 2, 4, 4]
+    },
+    {
+      "src": "n2",
+      "dst": "n3",
+      "tensor_shape": [1, 2, 4, 4]
+    },
+    {
+      "src": "n3",
+      "dst": "n4",
+      "tensor_shape": [1, 4, 8]
+    }
+  ]
+}
+

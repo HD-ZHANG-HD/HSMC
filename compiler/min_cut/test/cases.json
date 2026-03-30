@@ -1,0 +1,35 @@
+{
+  "cases": [
+    {
+      "name": "small_chain_graph",
+      "description": "Simple 4-node chain to validate base flow.",
+      "profiler_json": "profiler_default.json",
+      "graph_json": "graph_chain.json"
+    },
+    {
+      "name": "small_branched_graph",
+      "description": "Branched graph where one producer feeds two consumers.",
+      "profiler_json": "profiler_default.json",
+      "graph_json": "graph_branched.json"
+    },
+    {
+      "name": "linear_he_nonlinear_mpc",
+      "description": "Linear ops favor HE and nonlinear ops favor MPC; mixed placement should win.",
+      "profiler_json": "profiler_default.json",
+      "graph_json": "graph_linear_vs_nonlinear.json"
+    },
+    {
+      "name": "high_conversion_penalty",
+      "description": "Conversion is expensive, so uniform placement should dominate.",
+      "profiler_json": "profiler_high_conversion.json",
+      "graph_json": "graph_linear_vs_nonlinear.json"
+    },
+    {
+      "name": "low_conversion_penalty",
+      "description": "Conversion is cheap, so mixed HE/MPC placement should win.",
+      "profiler_json": "profiler_low_conversion.json",
+      "graph_json": "graph_linear_vs_nonlinear.json"
+    }
+  ]
+}
+

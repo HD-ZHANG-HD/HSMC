@@ -1,0 +1,13 @@
+{
+  "Embedding": "MPC",
+  "Linear_QKV": "MPC",
+  "Attention_QK_MatMul": "MPC",
+  "Softmax": "MPC",
+  "Attention_V_MatMul": "MPC",
+  "Out_Projection": "MPC",
+  "Residual_Add": "MPC",
+  "LayerNorm": "HE",
+  "FFN_Linear_1": "MPC",
+  "GeLU": "MPC",
+  "FFN_Linear_2": "MPC"
+}

@@ -1,0 +1,134 @@
+{
+  "graph_id": "bert_block_full",
+  "nodes": [
+    {
+      "node_id": "m1",
+      "op_type": "Embedding",
+      "input_shape": [1, 8],
+      "output_shape": [1, 8, 16]
+    },
+    {
+      "node_id": "m2",
+      "op_type": "Linear_QKV",
+      "input_shape": [1, 8, 16],
+      "output_shape": [1, 8, 48]
+    },
+    {
+      "node_id": "m3",
+      "op_type": "Attention_QK_MatMul",
+      "input_shape": [1, 8, 48],
+      "output_shape": [1, 4, 8, 8]
+    },
+    {
+      "node_id": "m4",
+      "op_type": "Softmax",
+      "input_shape": [1, 4, 8, 8],
+      "output_shape": [1, 4, 8, 8]
+    },
+    {
+      "node_id": "m5",
+      "op_type": "Attention_V_MatMul",
+      "input_shape": [1, 4, 8, 8],
+      "output_shape": [1, 8, 16]
+    },
+    {
+      "node_id": "m6",
+      "op_type": "Out_Projection",
+      "input_shape": [1, 8, 16],
+      "output_shape": [1, 8, 16]
+    },
+    {
+      "node_id": "m7",
+      "op_type": "Residual_Add",
+      "input_shape": [1, 8, 16],
+      "output_shape": [1, 8, 16]
+    },
+    {
+      "node_id": "m8",
+      "op_type": "LayerNorm",
+      "input_shape": [1, 8, 16],
+      "output_shape": [1, 8, 16]
+    },
+    {
+      "node_id": "m9",
+      "op_type": "FFN_Linear_1",
+      "input_shape": [1, 8, 16],
+      "output_shape": [1, 8, 32]
+    },
+    {
+      "node_id": "m10",
+      "op_type": "GeLU",
+      "input_shape": [1, 8, 32],
+      "output_shape": [1, 8, 32]
+    },
+    {
+      "node_id": "m11",
+      "op_type": "FFN_Linear_2",
+      "input_shape": [1, 8, 32],
+      "output_shape": [1, 8, 16]
+    }
+  ],
+  "edges": [
+    {
+      "src": "m1",
+      "dst": "m2",
+      "tensor_shape": [1, 8, 16]
+    },
+    {
+      "src": "m2",
+      "dst": "m3",
+      "tensor_shape": [1, 8, 48]
+    },
+    {
+      "src": "m3",
+      "dst": "m4",
+      "tensor_shape": [1, 4, 8, 8]
+    },
+    {
+      "src": "m4",
+      "dst": "m5",
+      "tensor_shape": [1, 4, 8, 8]
+    },
+    {
+      "src": "m2",
+      "dst": "m5",
+      "tensor_shape": [1, 8, 48]
+    },
+    {
+      "src": "m5",
+      "dst": "m6",
+      "tensor_shape": [1, 8, 16]
+    },
+    {
+      "src": "m6",
+      "dst": "m7",
+      "tensor_shape": [1, 8, 16]
+    },
+    {
+      "src": "m1",
+      "dst": "m7",
+      "tensor_shape": [1, 8, 16]
+    },
+    {
+      "src": "m7",
+      "dst": "m8",
+      "tensor_shape": [1, 8, 16]
+    },
+    {
+      "src": "m8",
+      "dst": "m9",
+      "tensor_shape": [1, 8, 16]
+    },
+    {
+      "src": "m9",
+      "dst": "m10",
+      "tensor_shape": [1, 8, 32]
+    },
+    {
+      "src": "m10",
+      "dst": "m11",
+      "tensor_shape": [1, 8, 32]
+    }
+  ]
+}
+

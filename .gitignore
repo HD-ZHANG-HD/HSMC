@@ -1,0 +1,36 @@
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Common tool caches
+.pytest_cache/
+.mypy_cache/
+.cache/
+.ipynb_checkpoints/
+
+# Local temp files
+tmp/
+tmp_*/
+tmp_test_create.txt
+
+# Experiment outputs
+experiments/output/
+
+# Build artifacts
+build/
+dist/
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+
+# Nested repository metadata from vendored baselines
+baseline/*
+!baseline/README.md
+
+# Baseline-generated artifacts
+baseline/*
+
+# Local runtime outputs
+wandb/
