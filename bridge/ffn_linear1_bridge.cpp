@@ -1,3 +1,4 @@
+#include <chrono>
 #include <cstdint>
 #include <fstream>
 #include <iostream>
@@ -119,9 +120,22 @@ int main(int argc, char **argv) {
   if (!read_u64_file(args.bias_path, bias_size, bias)) return 5;
 
   NonLinear nl(args.party, args.address, args.port);
+  auto __mpc_t0 = std::chrono::steady_clock::now();
   nl.n_matrix_mul_iron(
       args.nthreads, input.data(), weight.data(), output.data(), args.n, dim1, args.h, args.i, args.ell, args.ell,
       args.ell, args.scale, args.scale, args.scale);
+  auto __mpc_t1 = std::chrono::steady_clock::now();
+  uint64_t __comm_bytes = 0;
+  uint64_t __comm_rounds = 0;
+  for (int __i_stat = 0; __i_stat < args.nthreads; __i_stat++) {
+    __comm_bytes += nl.iopackArr[__i_stat]->get_comm();
+    __comm_rounds += nl.iopackArr[__i_stat]->get_rounds();
+  }
+  double __elapsed_ms = std::chrono::duration_cast<std::chrono::microseconds>(__mpc_t1 - __mpc_t0).count() / 1000.0;
+  std::cout << "[mpc_stats] party=" << args.party
+            << " elapsed_ms=" << __elapsed_ms
+            << " comm_bytes=" << __comm_bytes
+            << " comm_rounds=" << __comm_rounds << std::endl;
 
   for (std::size_t idx = 0; idx < output_size; ++idx) {
     output[idx] = (output[idx] + bias[idx]) & mask;

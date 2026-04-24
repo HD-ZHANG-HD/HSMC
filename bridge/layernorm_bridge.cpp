@@ -1,3 +1,4 @@
+#include <chrono>
 #include <cstdint>
 #include <fstream>
 #include <iostream>
@@ -129,6 +130,7 @@ int main(int argc, char **argv) {
   std::vector<uint64_t> out(total, 0ULL);
 
   NonLinear nl(args.party, args.address, args.port);
+  auto __mpc_t0 = std::chrono::steady_clock::now();
   nl.layer_norm(
       args.nthreads,
       in.data(),
@@ -139,6 +141,18 @@ int main(int argc, char **argv) {
       args.array_size,
       args.ell,
       args.scale);
+  auto __mpc_t1 = std::chrono::steady_clock::now();
+  uint64_t __comm_bytes = 0;
+  uint64_t __comm_rounds = 0;
+  for (int __i = 0; __i < args.nthreads; __i++) {
+    __comm_bytes += nl.iopackArr[__i]->get_comm();
+    __comm_rounds += nl.iopackArr[__i]->get_rounds();
+  }
+  double __elapsed_ms = std::chrono::duration_cast<std::chrono::microseconds>(__mpc_t1 - __mpc_t0).count() / 1000.0;
+  std::cout << "[mpc_stats] party=" << args.party
+            << " elapsed_ms=" << __elapsed_ms
+            << " comm_bytes=" << __comm_bytes
+            << " comm_rounds=" << __comm_rounds << std::endl;
 
   if (!write_u64_file(args.output_path, out)) return 6;
   std::cout << "[layernorm_bridge] done party=" << args.party << " wrote=" << args.output_path << std::endl;
